@@ -2,11 +2,13 @@
 
 An app to generate new boxes in your app. And move those boxes using your keyboard keys.
 
+[Click here to try online demo](https://shindesharad71.github.io/Move-Boxes-With-Angular/)
+
 ### Demo
 
 ![Demo](https://github.com/shindesharad71/Move-Boxes-With-Angular/blob/master/demo.gif?raw=true)
 
-### Installation and Runing Code
+### Installation and Running Code
 
 1. Clone repository
 2. Install Angular CLI by running `npm i -g @angular/cli`
