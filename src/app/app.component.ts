@@ -6,9 +6,10 @@ import { Component, HostListener } from '@angular/core';
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-	selectedBox = '0';
-	boxes = [{title: 1}];
 	ALLOWED_KEYS = [37, 38, 39, 40, 87, 83, 65, 68, 46];
+	POSITION_SHIFT_BY = 10;
+	selectedBox = '0';
+	boxes = [{ title: 1 }];
 	isKeyboardEnable = false;
 
 	@HostListener('document:keydown', ['$event'])
@@ -26,12 +27,12 @@ export class AppComponent {
 	}
 
 	addBox(): void {
-		this.boxes.push({title: this.boxes.length + 1});
+		this.boxes.push({ title: this.boxes.length + 1 });
 	}
 
 	removeBox(): void {
 		if (this.selectedBox?.length) {
-      this.boxes.splice(Number(this.selectedBox), 1);
+			this.boxes.splice(Number(this.selectedBox), 1);
 		}
 	}
 
@@ -51,34 +52,66 @@ export class AppComponent {
 
 		switch (keyCode) {
 			case 37:
-				this.updatePosition(this.selectedBox, left - 10, top); // left
+				this.updatePosition(
+					this.selectedBox,
+					left - this.POSITION_SHIFT_BY,
+					top
+				); // left
 				break;
 
 			case 39:
-				this.updatePosition(this.selectedBox, left + 10, top); // right
+				this.updatePosition(
+					this.selectedBox,
+					left + this.POSITION_SHIFT_BY,
+					top
+				); // right
 				break;
 
 			case 38:
-				this.updatePosition(this.selectedBox, left, top - 10); // up
+				this.updatePosition(
+					this.selectedBox,
+					left,
+					top - this.POSITION_SHIFT_BY
+				); // up
 				break;
 
 			case 40:
-				this.updatePosition(this.selectedBox, left, top + 10); // down
+				this.updatePosition(
+					this.selectedBox,
+					left,
+					top + this.POSITION_SHIFT_BY
+				); // down
 				break;
 			case 65:
-				this.updatePosition(this.selectedBox, left - 10, top); // left
+				this.updatePosition(
+					this.selectedBox,
+					left - this.POSITION_SHIFT_BY,
+					top
+				); // left
 				break;
 
 			case 68:
-				this.updatePosition(this.selectedBox, left + 10, top); // right
+				this.updatePosition(
+					this.selectedBox,
+					left + this.POSITION_SHIFT_BY,
+					top
+				); // right
 				break;
 
 			case 87:
-				this.updatePosition(this.selectedBox, left, top - 10); // up
+				this.updatePosition(
+					this.selectedBox,
+					left,
+					top - this.POSITION_SHIFT_BY
+				); // up
 				break;
 
 			case 83:
-				this.updatePosition(this.selectedBox, left, top + 10); // down
+				this.updatePosition(
+					this.selectedBox,
+					left,
+					top + this.POSITION_SHIFT_BY
+				); // down
 				break;
 
 			case 46:
@@ -92,10 +125,43 @@ export class AppComponent {
 	}
 
 	updatePosition(id, xPos, yPos): void {
+		// const isEligible = this.isEligibleToShift(id, xPos, yPos);
+
+		// if (isEligible) {
+		// 	const element = document.getElementById(id);
+		// 	element.style.position = 'absolute';
+		// 	element.style.left = xPos + 'px';
+		// 	element.style.top = yPos + 'px';
+		// 	element.style.zIndex = id;
+		// }
 		const element = document.getElementById(id);
 		element.style.position = 'absolute';
 		element.style.left = xPos + 'px';
 		element.style.top = yPos + 'px';
 		element.style.zIndex = id;
+	}
+
+	isEligibleToShift(id, xPos, yPos): boolean {
+		const boxPosition = document.getElementById(id).getBoundingClientRect();
+		const boxWrapperPosition = document
+			.getElementById('box-area')
+			.getBoundingClientRect();
+
+		if (boxWrapperPosition.left > xPos) {
+			return false;
+		}
+
+		if (boxWrapperPosition.top > yPos) {
+			return false;
+		}
+
+		if (boxPosition.right + 7 > boxWrapperPosition.right) {
+			return false;
+		}
+
+		if (boxPosition.bottom + 7 > boxWrapperPosition.bottom) {
+			return false;
+		}
+		return true;
 	}
 }
