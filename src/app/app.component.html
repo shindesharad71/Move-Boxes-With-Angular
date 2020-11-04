@@ -1,7 +1,10 @@
 <section>
 	<h1>Move Boxes With Angular</h1>
 	<button (click)="addBox()">Create Box</button>
-	<button (click)="toggleKeyboard()">
+	<button
+		(click)="toggleKeyboard()"
+		[ngClass]="!isKeyboardEnable ? 'green' : 'red'"
+	>
 		{{ isKeyboardEnable ? 'De-activate' : 'Activate' }} Keyboard
 	</button>
 	<p [ngClass]="{ hidden: isKeyboardEnable }">

@@ -52,66 +52,34 @@ export class AppComponent {
 
 		switch (keyCode) {
 			case 37:
-				this.updatePosition(
-					this.selectedBox,
-					left - this.POSITION_SHIFT_BY,
-					top
-				); // left
+				this.moveLeft(left - this.POSITION_SHIFT_BY, top); // left
 				break;
 
 			case 39:
-				this.updatePosition(
-					this.selectedBox,
-					left + this.POSITION_SHIFT_BY,
-					top
-				); // right
+				this.moveRight(left + this.POSITION_SHIFT_BY, top); // right
 				break;
 
 			case 38:
-				this.updatePosition(
-					this.selectedBox,
-					left,
-					top - this.POSITION_SHIFT_BY
-				); // up
+				this.moveUp(left, top - this.POSITION_SHIFT_BY); // up
 				break;
 
 			case 40:
-				this.updatePosition(
-					this.selectedBox,
-					left,
-					top + this.POSITION_SHIFT_BY
-				); // down
+				this.moveDown(left, top + this.POSITION_SHIFT_BY); // down
 				break;
 			case 65:
-				this.updatePosition(
-					this.selectedBox,
-					left - this.POSITION_SHIFT_BY,
-					top
-				); // left
+				this.moveLeft(left - this.POSITION_SHIFT_BY, top); // left
 				break;
 
 			case 68:
-				this.updatePosition(
-					this.selectedBox,
-					left + this.POSITION_SHIFT_BY,
-					top
-				); // right
+				this.moveRight(left + this.POSITION_SHIFT_BY, top); // right
 				break;
 
 			case 87:
-				this.updatePosition(
-					this.selectedBox,
-					left,
-					top - this.POSITION_SHIFT_BY
-				); // up
+				this.moveUp(left, top - this.POSITION_SHIFT_BY); // up
 				break;
 
 			case 83:
-				this.updatePosition(
-					this.selectedBox,
-					left,
-					top + this.POSITION_SHIFT_BY
-				); // down
+				this.moveDown(left, top + this.POSITION_SHIFT_BY); // down
 				break;
 
 			case 46:
@@ -125,15 +93,6 @@ export class AppComponent {
 	}
 
 	updatePosition(id, xPos, yPos): void {
-		// const isEligible = this.isEligibleToShift(id, xPos, yPos);
-
-		// if (isEligible) {
-		// 	const element = document.getElementById(id);
-		// 	element.style.position = 'absolute';
-		// 	element.style.left = xPos + 'px';
-		// 	element.style.top = yPos + 'px';
-		// 	element.style.zIndex = id;
-		// }
 		const element = document.getElementById(id);
 		element.style.position = 'absolute';
 		element.style.left = xPos + 'px';
@@ -141,27 +100,43 @@ export class AppComponent {
 		element.style.zIndex = id;
 	}
 
-	isEligibleToShift(id, xPos, yPos): boolean {
-		const boxPosition = document.getElementById(id).getBoundingClientRect();
+	moveLeft(left, top): void {
 		const boxWrapperPosition = document
 			.getElementById('box-area')
 			.getBoundingClientRect();
 
-		if (boxWrapperPosition.left > xPos) {
-			return false;
+		if (boxWrapperPosition.left < left) {
+			this.updatePosition(this.selectedBox, left, top);
 		}
+	}
 
-		if (boxWrapperPosition.top > yPos) {
-			return false;
-		}
+	moveRight(left, top): void {
+		const boxWrapperPosition = document
+			.getElementById('box-area')
+			.getBoundingClientRect();
 
-		if (boxPosition.right + 7 > boxWrapperPosition.right) {
-			return false;
+		if (boxWrapperPosition.right > left) {
+			this.updatePosition(this.selectedBox, left, top);
 		}
+	}
 
-		if (boxPosition.bottom + 7 > boxWrapperPosition.bottom) {
-			return false;
+	moveUp(left, top): void {
+		const boxWrapperPosition = document
+			.getElementById('box-area')
+			.getBoundingClientRect();
+
+		if (boxWrapperPosition.top < top) {
+			this.updatePosition(this.selectedBox, left, top);
 		}
-		return true;
+	}
+
+	moveDown(left, top): void {
+		const boxWrapperPosition = document
+			.getElementById('box-area')
+			.getBoundingClientRect();
+
+		if (boxWrapperPosition.bottom > top) {
+			this.updatePosition(this.selectedBox, left, top);
+		}
 	}
 }

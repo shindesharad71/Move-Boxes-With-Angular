@@ -16,7 +16,7 @@ button {
 	border: 1px solid skyblue;
 	background-color: #fff;
 	color: #000;
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .box {
@@ -53,4 +53,14 @@ button {
 
 .hidden {
   visibility: hidden;
+}
+
+.green {
+  background-color: green;
+  color: #fff;
+}
+
+.red {
+  background-color: salmon;
+  color: #000;
 }
