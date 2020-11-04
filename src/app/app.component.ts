@@ -7,8 +7,8 @@ import { Component, HostListener } from '@angular/core';
 })
 export class AppComponent {
 	selectedBox = '0';
-	boxes = [0];
-	ALLOWED_KEYS = [37, 38, 39, 40, 87, 83, 65, 68];
+	boxes = [{title: 1}];
+	ALLOWED_KEYS = [37, 38, 39, 40, 87, 83, 65, 68, 46];
 	isKeyboardEnable = false;
 
 	@HostListener('document:keydown', ['$event'])
@@ -26,8 +26,13 @@ export class AppComponent {
 	}
 
 	addBox(): void {
-		const newItem = Number(this.boxes[this.boxes.length - 1] + 1);
-		this.boxes.push(newItem);
+		this.boxes.push({title: this.boxes.length + 1});
+	}
+
+	removeBox(): void {
+		if (this.selectedBox?.length) {
+      this.boxes.splice(Number(this.selectedBox), 1);
+		}
 	}
 
 	toggleKeyboard(): void {
@@ -74,6 +79,10 @@ export class AppComponent {
 
 			case 83:
 				this.updatePosition(this.selectedBox, left, top + 10); // down
+				break;
+
+			case 46:
+				this.removeBox(); // delete
 				break;
 
 			default:
