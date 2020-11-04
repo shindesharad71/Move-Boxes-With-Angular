@@ -1,12 +1,27 @@
 * {
 	margin: 0;
-	padding: 0;
+  padding: 0;
+  text-align: center;
+}
+
+section {
+  margin-bottom: 32px;
 }
 
 .box {
 	width: 5vw;
 	height: 5vw;
-	margin: 16px;
 	background-color: cyan;
-	cursor: pointer;
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+  p {
+    padding: 12px;
+  }
+}
+
+.selected {
+  border: 2px solid #000;
+  border-radius: 5px;
+  font-weight: bold;
 }

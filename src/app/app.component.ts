@@ -1,26 +1,38 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 	selectedBox = '0';
 	boxes = [0];
-
-	constructor() {}
-
-	ngOnInit(): void {}
+	ALLOWED_KEYS = [37, 38, 39, 40];
+	isKeyboardEnable = false;
 
 	@HostListener('document:keydown', ['$event'])
-	handleKeyboardEvent(event: KeyboardEvent): void {
-		this.move(event);
+	handleKeyboardEvent(event: any): void {
+		if (
+			this.ALLOWED_KEYS.includes(event.keyCode) &&
+			this.isKeyboardEnable
+		) {
+			this.move(event);
+		}
 	}
 
 	selectBox(i: number): void {
 		this.selectedBox = i.toString();
 	}
+
+	addBox(): void {
+		const newItem = Number(this.boxes[this.boxes.length - 1] + 1);
+		this.boxes.push(newItem);
+	}
+
+  toggleKeyboard(): void {
+    this.isKeyboardEnable = !this.isKeyboardEnable;
+  }
 
 	move(event: any): void {
 		const keyCode = event.keyCode;
@@ -34,20 +46,21 @@ export class AppComponent implements OnInit {
 
 		switch (keyCode) {
 			case 37:
-				this.updatePosition(this.selectedBox, left - 10, top);
+				this.updatePosition(this.selectedBox, left - 10, top); // left
 				break;
 
 			case 39:
-				this.updatePosition(this.selectedBox, left + 10, top);
+				this.updatePosition(this.selectedBox, left + 10, top); // right
 				break;
 
 			case 38:
-				this.updatePosition(this.selectedBox, left, top - 10);
+				this.updatePosition(this.selectedBox, left, top - 10); // up
 				break;
 
 			case 40:
-				this.updatePosition(this.selectedBox, left, top + 10);
+				this.updatePosition(this.selectedBox, left, top + 10); // down
 				break;
+
 			default:
 				console.log('Invalid Keys');
 				break;
@@ -58,6 +71,7 @@ export class AppComponent implements OnInit {
 		const element = document.getElementById(id);
 		element.style.position = 'absolute';
 		element.style.left = xPos + 'px';
-		element.style.top = yPos + 'px';
+    element.style.top = yPos + 'px';
+    element.style.zIndex = Number(id);
 	}
 }

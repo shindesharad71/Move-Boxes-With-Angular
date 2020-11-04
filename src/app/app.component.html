@@ -1,10 +1,17 @@
-<p>Selected Box - {{ selectedBox }}</p>
+<section>
+	<p>Selected Box - {{ selectedBox }}</p>
+  <button (click)="addBox()">Create Box</button>
+  <button (click)="toggleKeyboard()">Keyboard - {{ isKeyboardEnable ? 'OFF' : 'ON' }}</button>
+</section>
+
 <section>
 	<div
 		class="box"
+		[ngClass]="{ selected: i.toString() === selectedBox }"
 		*ngFor="let box of boxes; let i = index"
 		[id]="i"
 		(click)="selectBox(i)"
-		(keydown)="move($event)"
-	></div>
+	>
+		<p>{{ i + 1 }}</p>
+	</div>
 </section>
