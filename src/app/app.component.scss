@@ -31,7 +31,8 @@ button {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: block;
 	}
 }
 
@@ -44,8 +45,12 @@ button {
 #box-area {
 	border: 2px solid #000;
 	border-radius: 5px;
-	height: 500px;
+	height: 450px;
 	width: 900px;
 	text-align: center;
 	margin: auto;
+}
+
+.hidden {
+  visibility: hidden;
 }
