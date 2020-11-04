@@ -30,9 +30,9 @@ export class AppComponent {
 		this.boxes.push(newItem);
 	}
 
-  toggleKeyboard(): void {
-    this.isKeyboardEnable = !this.isKeyboardEnable;
-  }
+	toggleKeyboard(): void {
+		this.isKeyboardEnable = !this.isKeyboardEnable;
+	}
 
 	move(event: any): void {
 		const keyCode = event.keyCode;
@@ -71,7 +71,7 @@ export class AppComponent {
 		const element = document.getElementById(id);
 		element.style.position = 'absolute';
 		element.style.left = xPos + 'px';
-    element.style.top = yPos + 'px';
-    element.style.zIndex = Number(id);
+		element.style.top = yPos + 'px';
+		element.style.zIndex = id;
 	}
 }

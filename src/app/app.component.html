@@ -1,10 +1,16 @@
 <section>
-	<p>Selected Box - {{ selectedBox }}</p>
-  <button (click)="addBox()">Create Box</button>
-  <button (click)="toggleKeyboard()">Keyboard - {{ isKeyboardEnable ? 'OFF' : 'ON' }}</button>
+	<h1>Move Boxes With Angular</h1>
+	<button (click)="addBox()">Create Box</button>
+	<button (click)="toggleKeyboard()">
+		{{ isKeyboardEnable ? 'De-activate' : 'Activate' }} Keyboard
+	</button>
+	<p *ngIf="!isKeyboardEnable">
+		Activate the keyboard to move boxes with <i>Arrow Keys</i> or
+		<i>A, W, S, D</i> keys.
+	</p>
 </section>
 
-<section>
+<section id="box-area">
 	<div
 		class="box"
 		[ngClass]="{ selected: i.toString() === selectedBox }"
