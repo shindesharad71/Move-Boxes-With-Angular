@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "div-game"
+    }
+  },
+  "defaultProject": "div-game",
+  "cli": {
+    "analytics": false
+  }
 }
